@@ -13,6 +13,13 @@ import os
 
 LINE = "One star. Monday came out cold and undercooked, and the bill runs till Friday. The waiter just shrugged."
 
+# The sealed gate: /output/entry.txt must be UTF-8 text of 1 to 180
+# characters, a single line of at most 25 words. Refuse to write anything
+# that would fail it rather than emit an invalid entry.
+assert 1 <= len(LINE) <= 180, "entry line outside the 1-180 character gate"
+assert LINE.count("\n") == 0, "entry line must be a single line"
+assert len(LINE.split()) <= 25, "entry line over the 25-word limit"
+
 
 def main() -> None:
     out_path = os.environ.get("MAKEFUN_OUTPUT", "/output/entry.txt")
